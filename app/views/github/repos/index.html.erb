@@ -1,0 +1,27 @@
+<%= form_tag github_repos_path, method: :get do %>
+    <%= text_field_tag :search, params[:query], placeholder: 'Search' %>
+    <%= text_field_tag :page, params[:page], placeholder: 'Page' %>
+    Display <%= select_tag :per_page, options_for_select([10, 25, 50, 100, 200], params[:per_page]), { id: "repos_per_page_select"} %> Repos per page
+    <%= submit_tag 'Go', class: 'btn btn-sm' %>
+<% end %>
+
+<% if defined?(@repos) %>
+  <% @repos.items.each do |repo| %>
+      <%= repo.name %>
+      <br>
+  <% end %>
+<% end %>
+
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#repos_per_page_select").change(function(ev) {
+      $("#repos_per_page_select")
+        .parent()
+        .submit();
+    });
+  })
+</script>
